@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: Canteen API
+  description: |-
+    This is  API for the canteen app of HCMUS.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/v1/api
+tags:
+  - name: users
+    description: Login, register, logout user
+    
+  - name: products
+    description: Products in app
+   
+  - name: orders
+    description: The way to send order request
+paths:
+  /auth/login:
+    post:
+      tags:
+        - users
+      summary: Login user to system
+      description: Login user with specific role
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+        required: true
+      responses:
+        '200':
+          description: Successful login!
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Login Successful
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        type: object
+                        properties:
+                          email:
+                            type: string
+                            example: canteen@gmail.com
+                          role:
+                            type: string
+                            example: user
+                          name:
+                            type: string
+                            example: canteen
+                      token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmdvYyBMb25nIiwiZW1haWwiOiJsb25ndGtAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJfaWQiOiI2NTRhM2I3ZjdkMGQ0OTIxYmJjZTdhMTQiLCJpYXQiOjE2OTk1MzU1MTZ9.wVJerXIzZtqA_tczVBYz5zmFccQhDAEgxCu1Pjx-wbk
+        '401':
+          description: Credentials are invalid!            
+      
+components:
+  schemas:
+    Users:
+      required:
+        - email
+        - password
+        - role
+      type: object
+      properties:
+        email:
+          type: string
+          format: int64
+          example: longtk@gmail.com
+        password:
+          type: string
+          example: 123456
+        role:
+          type: string
+          example: user
+    
+ 
+        
+    
+ 
