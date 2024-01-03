@@ -10,7 +10,6 @@ import {
 import { convertToObjectId } from "../utils/index.js";
 
 class inventoryActivityService {
-    // Come Voucher: (create new InventoryItem, created time, creator)
     static async createComeVoucher(infoCvoucher) {
         const { userId, item_list} = infoCvoucher;
         const newComeVoucher = await inventoryComeVoucher.create({
@@ -19,6 +18,7 @@ class inventoryActivityService {
         for (let item of item_list) {
             const newInventoryItem = await inventoryItem.create({
                 inventoryItem_name: item.inventoryItem_name,
+                inventoryItem_img: item.inventoryItem_img,
                 inventoryItem_quantity: item.inventoryItem_quantity,
                 inventoryItem_exp: item.inventoryItem_exp,
                 cost: item.cost
@@ -47,6 +47,7 @@ class inventoryActivityService {
             
             const newItem = await item.create({
                 item_name: invenItem.inventoryItem_name,
+                item_image: invenItem.inventoryItem_img,
                 item_price: element.price,
                 item_quantity: element.item_quantity,
                 item_cost: invenItem.cost,
@@ -54,7 +55,7 @@ class inventoryActivityService {
             });
             await updateQuantityinventoryItem(convertToObjectId(element.inventoryItem), - element.item_quantity);
             leaveItemAct.leave_list.push({
-                inventoryItem: convertToObjectId(element.inventoryItem),
+                inventoryItem: element.inventoryItem,
                 cost : invenItem.cost,
                 quantity:element.item_quantity,
                 price: element.price,

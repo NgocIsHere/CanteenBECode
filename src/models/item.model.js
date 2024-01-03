@@ -9,6 +9,10 @@ const itemSchema = new Schema(
       type: String,
       required: true,
     },
+    item_image:{
+      type: String,
+      required: true,
+    },
     item_description: {
       type: String,
     },

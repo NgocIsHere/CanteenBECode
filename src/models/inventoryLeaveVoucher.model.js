@@ -12,7 +12,7 @@ const inventoryLeaveVoucherSchema = new Schema(
         },
         leave_list: [{
             inventoryItem:{
-                type: Schema.Types.ObjectId,
+                type: String,
                 ref: "inventoryItem",
             },
             quantity: {

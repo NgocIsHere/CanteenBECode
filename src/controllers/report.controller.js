@@ -47,7 +47,7 @@ class ReportController {
         const data = await ReportService.getDInvReport(req.Time);
 
         new SuccessResponse({
-            message: "Detail Day Income Report !",
+            message: "Detail Daily Income Report !",
             data,
         }).send(res);
     }
@@ -63,7 +63,7 @@ class ReportController {
         const data = await ReportService.getAllMIncReport();
 
         new SuccessResponse({
-            message: "Got All Month Income Report !",
+            message: "Got All Monthly Income Report !",
             data,
         }).send(res);
     }
@@ -71,7 +71,7 @@ class ReportController {
         const data = await ReportService.getMIncReport(req.Time);
 
         new SuccessResponse({
-            message: "Detail Month Income Report !",
+            message: "Detail Monthly Income Report !",
             data,
         }).send(res);
     }

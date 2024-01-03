@@ -6,8 +6,8 @@ import {
 } from "../models/repositories/inventoryItem.repo.js";
 
 class inventoryItemService {
-  static async createinventoryItems({inventoryItem_name, inventoryItem_quantity, inventoryItem_exp, cost}) {
-    const newinventoryItem = await inventoryItem.create({inventoryItem_name, inventoryItem_quantity, inventoryItem_exp, cost});
+  static async createinventoryItems({inventoryItem_name, inventoryItem_img, inventoryItem_quantity, inventoryItem_exp, cost}) {
+    const newinventoryItem = await inventoryItem.create({inventoryItem_name, inventoryItem_img, inventoryItem_quantity, inventoryItem_exp, cost});
     return newinventoryItem;
   }
   static async getAllinventoryItem(){

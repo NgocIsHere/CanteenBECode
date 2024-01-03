@@ -9,6 +9,10 @@ const inventoryItemSchema = new Schema(
             type: String,
             required: true,
         },
+        inventoryItem_img:{
+            type: String,
+            required: true,
+        },
         inventoryItem_quantity: {
             type: Number,
             required: true,
