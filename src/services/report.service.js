@@ -60,10 +60,10 @@ class ReportService {
         return DInvReport;
     }
     static async getAllDInvReport() {
-        return await dInventoryReport.find({});
+        return dInventoryReport.find({});
     }
     static async getDInvReport(Time) {
-        return await findInvReportByTime(Time)
+        return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail(Id) {
         return await dInventoryReport
@@ -81,7 +81,7 @@ class ReportService {
         });
     }
     static async getAllDIncReport() {
-        return await dIncomeReport.find({});
+        return dIncomeReport.find({});
     }
     static async getDInCReport(Time) {
         return await findDIncReportByTime(Time)
