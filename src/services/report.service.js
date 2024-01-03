@@ -1,12 +1,8 @@
 import ErrorResponse from "../core/error.response.js";
-import inventoryLeaveVoucher from "../models/inventoryLeaveVoucher.model.js";
-import inventoryComeVoucher from '../models/inventoryComeVoucher.model.js';
-import inventoryItem from "../models/inventoryItem.model.js";
-import inventoryDeleteVoucher from "../models/inventoryDeleteVoucher.model.js";
-import order from "../models/order.model.js"
 import dInventoryReport from "../models/inventoryDReport.model.js";
 import dIncomeReport from "../models/incomeDReport.model.js";
-import { findInvReportByTime, findInvReportByUser, findIncReportByTime, findIncReportByUser }
+import mIncomeReport from "../models/incomeMReport.model.js";
+import {findInvReportByTime, findInvReportByUser, findDIncReportByTime, findDIncReportByUser, findMIncReportByTime, findMIncReportByUser }
     from "../models/repositories/report.repo.js"
 import { findinventoryComeVoucherByTime, findinventoryDeleteVoucherTime, findinventoryLeaveVoucherTime }
     from "../models/repositories/inventoryActivities.repo.js"
@@ -85,7 +81,25 @@ class ReportService {
         return await dIncomeReport.find();
     }
     static async getDInCReport(Time) {
-        return await findIncReportByTime(Time)
+        return await findDIncReportByTime(Time)
+    }
+
+    static async createMIncReport(userId) {
+        //user_id,sale_quantity,loss_quantity,profit,loss_money,
+        const DInvReport = await mIncomeReport.create({
+            user_id: convertToObjectId(userId),
+            sale_quantity: 0,
+            loss_quantity:0,
+            income: 0,
+            profit: 0,
+            loss_money: 0
+        });
+    }
+    static async getAllMIncReport() {
+        return await mIncomeReport.find();
+    }
+    static async getMIncReport(Time) {
+        return await findMIncReportByTime(Time)
     }
 }
 export default ReportService;

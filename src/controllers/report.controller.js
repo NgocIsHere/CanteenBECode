@@ -39,7 +39,7 @@ class ReportController {
         const data = await ReportService.getAllDIncReport();
 
         new SuccessResponse({
-            message: "Got All Inventory Report !",
+            message: "Got All Day Income Report !",
             data,
         }).send(res);
     }
@@ -47,7 +47,31 @@ class ReportController {
         const data = await ReportService.getDInvReport(req.Time);
 
         new SuccessResponse({
-            message: "Detail Inventory Report !",
+            message: "Detail Day Income Report !",
+            data,
+        }).send(res);
+    }
+    static async createMIncReport(req, res) {
+        const data = await ReportService.createMIncReport(req.body.userId);
+
+        new SuccessResponse({
+            message: "Created This Month Income Report !",
+            data,
+        }).send(res);
+    }
+    static async getAllMIncReport(req, res) {
+        const data = await ReportService.getAllMIncReport();
+
+        new SuccessResponse({
+            message: "Got All Month Income Report !",
+            data,
+        }).send(res);
+    }
+    static async getMIncReport(req, res) {
+        const data = await ReportService.getMIncReport(req.Time);
+
+        new SuccessResponse({
+            message: "Detail Month Income Report !",
             data,
         }).send(res);
     }

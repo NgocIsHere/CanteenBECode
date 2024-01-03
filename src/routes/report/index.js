@@ -18,14 +18,24 @@ reportRoute.post(
     checkRole(["staff"]),
     asyncHandler(ReportController.createDIncReport)
 );
+reportRoute.post(
+    "/incomeM/new",
+    checkRole(["staff"]),
+    asyncHandler(ReportController.createMIncReport)
+);
 reportRoute.get(
     "/inventoryD/all",
-    checkRole(["staff"]),
+    checkRole(["staff","admin"]),
     asyncHandler(ReportController.getAllDInvReport)
 );
 reportRoute.get(
     "/incomeD/all",
-    checkRole(["staff"]),
+    checkRole(["staff","admin"]),
     asyncHandler(ReportController.getAllDIncReport)
+);
+reportRoute.get(
+    "/incomeM/all",
+    checkRole(["staff","admin"]),
+    asyncHandler(ReportController.getAllMIncReport)
 );
 export default reportRoute;
