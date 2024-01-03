@@ -14,7 +14,7 @@ class inventoryItemService {
     return inventoryItem.find()
   }
   static async getAllExpiredinventoryItem(){
-    return inventoryItem.find({ "exp": { $lt: new Date() } })
+    return inventoryItem.find({ "inventoryItem_exp": { $lt: new Date() } })
   }
   static async updateinventoryItem({ inventoryItemId, updateInfo }) {
     return updateinventoryItem({ inventoryItemId, updateInfo });

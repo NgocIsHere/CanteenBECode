@@ -20,7 +20,7 @@ class inventoryItemController {
   static async getAllExpiredinventoryItem(req, res) {
     const data = await inventoryItemService.getAllExpiredinventoryItem();
     new SuccessResponse({
-      message:"Completed get all inventoryItems",
+      message:"Completed Get All Expired Inventory Items",
       data,
     }).send(res)
   }
