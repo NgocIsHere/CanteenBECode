@@ -29,6 +29,11 @@ reportRoute.get(
     asyncHandler(ReportController.getAllDInvReport)
 );
 reportRoute.get(
+    "inventory/detail",
+    checkRole(["staff","admin"]),
+    asyncHandler(ReportController.getDInvReportDetail)
+)
+reportRoute.get(
     "/incomeD/all",
     checkRole(["staff","admin"]),
     asyncHandler(ReportController.getAllDIncReport)

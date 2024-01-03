@@ -23,10 +23,19 @@ class ReportController {
         const data = await ReportService.getDInvReport(req.Time);
 
         new SuccessResponse({
+            message: "Inventory Reports At Time !",
+            data,
+        }).send(res);
+    }
+    static async getDInvReportDetail(req, res) {
+        const data = await ReportService.getDInvReportDetail(req.Id);
+
+        new SuccessResponse({
             message: "Detail Inventory Report !",
             data,
         }).send(res);
     }
+    
     static async createDIncReport(req, res) {
         const data = await ReportService.createDIncReport(req.body.userId);
 
