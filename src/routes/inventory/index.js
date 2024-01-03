@@ -13,10 +13,14 @@ inventoryItemsRoute.post(
   checkRole(["staff"]),
   asyncHandler(inventoryItemController.createinventoryItems)
 );
-inventoryItemsRoute.get(
-  "/all", asyncHandler(inventoryItemController.getAllinventoryItem)
+inventoryItemsRoute.get("/all",
+  checkRole(["staff", "admin"]),
+  asyncHandler(inventoryItemController.getAllinventoryItem)
 )
-
+inventoryItemsRoute.get("/expired",
+  checkRole(["staff", "admin"]),
+  asyncHandler(inventoryItemController.getAllExpiredinventoryItem)
+)
 inventoryItemsRoute.patch(
   "/:id",
   checkRole(["staff", "admin"]),
