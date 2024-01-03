@@ -9,6 +9,11 @@ const userRoute = Router();
 userRoute.use(authentication);
 
 userRoute.patch("/user", asyncHandler(UserController.updateInfo));
+userRoute.get(
+  "/user/:id",
+  checkRole(["admin","user","staff"]),
+  asyncHandler(UserController.getUserInfor)
+);
 
 userRoute.get(
   "/staffs",

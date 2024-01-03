@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import { hashPassWord } from "../utils/index.js";
+import { convertToObjectId, hashPassWord } from "../utils/index.js";
 
 class UserService {
   static async findUserByEmail(email) {
@@ -8,7 +8,7 @@ class UserService {
   }
 
   static async findUserById(id) {
-    const user = await User.findOne({ _id: id }).lean();
+    const user = await User.findOne({ _id: convertToObjectId(id) }).lean();
     return user;
   }
 

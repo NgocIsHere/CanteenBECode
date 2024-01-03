@@ -14,7 +14,14 @@ class UserController {
       data: userUpdate,
     }).send(res);
   }
-
+  static async getUserInfor(req,res){
+    const { id } = req.params;
+    const userinfor = await UserService.findUserById(id);
+    new SuccessResponse({
+      message: "User Information",
+      data: userinfor,
+    }).send(res);
+  }
   static async getListStaffs(req, res) {
     const listStaffs = await UserService.getListStaffs();
 
