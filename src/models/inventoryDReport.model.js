@@ -14,18 +14,23 @@ const dinventoryReportSchema = new Schema(
             item_id: {
               type: Schema.Types.ObjectId,
               ref: "inventoryItem",
+              required: true,
             },
             init: {
               type: Number, // lấy số lượng inventoryItem đầu ngày
+              required: true,
             },
             leave:{
               type: Number, // số lượng xuất kho (qua item)
+              required: true,
             },
             come:{
               type: Number, // số lượng nhập
+              required: true,
             },
             quantity: {
-              type: Number
+              type: Number,
+              required: true,
             }
           }],
         deleted_item:[{
