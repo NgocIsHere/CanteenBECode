@@ -60,13 +60,14 @@ class ReportService {
         return DInvReport;
     }
     static async getAllDInvReport() {
-        return await dInventoryReport.find();
+        return await dInventoryReport.find({});
     }
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time)
     }
     static async getDInvReportDetail(Id) {
-        return await dInventoryReport.findOne({ _id: convertToObjectId(Id)}).populate("inventory_list");
+        return await dInventoryReport
+        .findOne({ _id: convertToObjectId(Id)});
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
@@ -80,7 +81,7 @@ class ReportService {
         });
     }
     static async getAllDIncReport() {
-        return await dIncomeReport.find();
+        return await dIncomeReport.find({});
     }
     static async getDInCReport(Time) {
         return await findDIncReportByTime(Time)
@@ -98,7 +99,7 @@ class ReportService {
         });
     }
     static async getAllMIncReport() {
-        return await mIncomeReport.find();
+        return await mIncomeReport.find({});
     }
     static async getMIncReport(Time) {
         return await findMIncReportByTime(Time)
