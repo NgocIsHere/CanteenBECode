@@ -8,6 +8,7 @@ import {
     updateQuantityinventoryItem, findinventoryItemById
 } from "../models/repositories/inventoryItem.repo.js"
 import { convertToObjectId } from "../utils/index.js";
+import { updateQuantityItem } from "../models/repositories/item.repo.js";
 
 class inventoryActivityService {
     static async createComeVoucher(infoCvoucher) {
@@ -44,15 +45,20 @@ class inventoryActivityService {
         });
         for (let element of item_list) {
             const invenItem = await findinventoryItemById(convertToObjectId(element.inventoryItem));
-            
-            const newItem = await item.create({
-                item_name: invenItem.inventoryItem_name,
-                item_image: invenItem.inventoryItem_img,
-                item_price: element.price,
-                item_quantity: element.item_quantity,
-                item_cost: invenItem.cost,
-                item_type: "inven"
-            });
+            const existItem = await item.find({item_name: invenItem.inventoryItem_name})
+            if(existItem){
+                await updateQuantityItem(existItem.item_name,element.item_quantity)
+            }
+            else{
+                const newItem = await item.create({
+                    item_name: invenItem.inventoryItem_name,
+                    item_image: invenItem.inventoryItem_img,
+                    item_price: element.price,
+                    item_quantity: element.item_quantity,
+                    item_cost: invenItem.cost,
+                    item_type: "inven"
+                });
+            }
             await updateQuantityinventoryItem(convertToObjectId(element.inventoryItem), - element.item_quantity);
             leaveItemAct.leave_list.push({
                 inventoryItem: element.inventoryItem,
