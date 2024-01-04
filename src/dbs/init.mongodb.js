@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
-import  { connectString } from "../configs/config.mongodb.js";
+import connectString from "../configs/config.mongodb.js";
 import { countConnect } from "../helpers/check.connect.js";
 
-const env = process.env.NODE_ENV || "dev";
 class Database {
   constructor() {
     this.connect();
@@ -10,7 +9,7 @@ class Database {
 
   connect() {
     mongoose
-    .connect(connectString[env])
+    .connect(connectString)
       .then(() => {
         // Assuming countConnect is defined
         countConnect();
