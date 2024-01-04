@@ -19,6 +19,10 @@ const dinventoryReportSchema = new Schema(
               ref: "inventoryItem",
               required: true,
             },
+            inventoryName: {
+              type: String,
+              required: true,
+          },
             init: {
               type: Number, // lấy số lượng inventoryItem đầu ngày
               required: true,
