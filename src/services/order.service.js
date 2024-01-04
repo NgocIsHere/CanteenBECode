@@ -113,6 +113,22 @@ class OrderService {
       }
     );
   }
+  static async completeOrder({ orderId }) {
+    const orderFound = await findOrderById(orderId);
+    if (!orderFound) throw new ErrorResponse("Order not found", 404);
+
+    if (orderFound.order_status !== "processing")
+      throw new ErrorResponse("Order is not processing", 400);
+
+    const itemsOfOrder = await orderItem.find({ order_id: orderId });
+
+    return await updateOrder(
+      { _id: convertToObjectId(orderId) },
+      {
+        order_status: "completed",
+      }
+    );
+  }
 }
 
 export default OrderService;

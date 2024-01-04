@@ -20,18 +20,22 @@ orderRoute.get("/details", asyncHandler(OrderController.getOrderDetail));
 
 orderRoute.get("/search", asyncHandler(OrderController.searchOrder));
 
-orderRoute.patch("/cancle/:orderId", asyncHandler(OrderController.cancleOrder));
+orderRoute.post("/cancle/:orderId", asyncHandler(OrderController.cancleOrder));
 
 orderRoute.delete(
   "/:orderId",
-  checkRole(["staff"]),
   asyncHandler(OrderController.deleteOrder)
 );
 
-orderRoute.patch(
+orderRoute.post(
   "/confirm-payment/:orderId",
-  checkRole(["staff"]),
+  checkRole(["staff","admin"]),
   asyncHandler(OrderController.confirmPayment)
+);
+orderRoute.post(
+  "/completeOrder/:orderId",
+  checkRole(["staff","admin"]),
+  asyncHandler(OrderController.completeOrder)
 );
 
 orderRoute.get(

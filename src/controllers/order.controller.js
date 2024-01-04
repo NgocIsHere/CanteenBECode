@@ -87,6 +87,14 @@ class OrderController {
       data,
     }).send(res);
   }
+  static async completeOrder(req, res) {
+    const data = await OrderService.completeOrder(req.params);
+
+    new SuccessResponse({
+      message: "Order has been completed",
+      data,
+    }).send(res);
+  }
 }
 
 export default OrderController;
