@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import config from "../configs/config.mongodb.js";
 import { countConnect } from "../helpers/check.connect.js";
 
-const env = process.env.NODE_ENV || "dev";
+const env = process.env.NODE_ENV || "pro";
 const {
   db: { host, port, name },
 } = config;
@@ -11,7 +11,7 @@ const connects= {
   pro: `mongodb+srv://${host}:${port}@canteenmanagement.qbhpovo.mongodb.net/${name}?retryWrites=true&w=majority`,
 };
 const connectString = connects[env];
-
+console.log(connectString)
 class Database {
   constructor() {
     this.connect();
