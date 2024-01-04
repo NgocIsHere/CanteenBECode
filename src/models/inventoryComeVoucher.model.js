@@ -12,7 +12,6 @@ const inventoryComeVoucherSchema = new Schema(
         },
         creator: {
             type: String,
-            required: true
         },
         come_list: [
             {

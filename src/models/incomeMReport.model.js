@@ -12,7 +12,6 @@ const reportItemSchema = new Schema(
       },
       creator: {
         type: String,
-        required: true
       },
       sale_quantity:{
         type: Number, // Số lượng lấy từ order

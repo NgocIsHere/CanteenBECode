@@ -12,7 +12,6 @@ const dinventoryReportSchema = new Schema(
         },
         creator: {
           type: String,
-          required: true
         },
         inventory_list: [{
             item_id: {
