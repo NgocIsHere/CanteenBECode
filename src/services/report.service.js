@@ -67,7 +67,7 @@ class ReportService {
     }
     static async getDInvReportDetail(Id) {
         return await dInventoryReport
-        .findOne({_id: Id});
+        .find({inventory_list:{$elemMatch:{init : 0, quantity : 0, leave: 0, come: 0}}}).pretty();;
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
