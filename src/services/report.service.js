@@ -63,17 +63,13 @@ class ReportService {
         return DInvReport;
     }
     static async getAllDInvReport() {
-        return dInventoryReport.find({}).toArray(function(err, result) {
-            if (err) throw err;
-            console.log(result);
-        });
+        return dInventoryReport.find({});
     }
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail(Id) {
-        return await dInventoryReport
-        .find({_id: Id});
+        return await dInventoryReport.findOne({_id: Id});
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,

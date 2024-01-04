@@ -18,12 +18,17 @@ class UserService {
   }
 
   static async updateUser({ userId, name, password, attributes }) {
+    const foundUser = await User.findById(userId);
+
+    if (!foundUser) {
+      throw new Error('User not found');
+    }
     const userUpdate = await User.findOneAndUpdate(
       { _id: userId },
       {
-        name,
-        password: password ? await hashPassWord(password): foundUser.password,
-        attributes,
+        name, // Update name if provided
+        password : password ? await hashPassWord(password) : foundUser.password,
+        attributes
       },
       { new: true, upsert: true }
     )
