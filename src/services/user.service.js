@@ -17,11 +17,11 @@ class UserService {
     return user;
   }
 
-  static async updateUser({ userId, name, password, attributes }) {
+  static async updateUser({ userId, nameN, password, attributes }) {
     const userUpdate = await User.findOneAndUpdate(
       { _id: userId },
       {
-        name,
+        name: nameN,
         password: await hashPassWord(password),
         attributes,
       },

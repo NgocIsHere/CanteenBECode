@@ -29,7 +29,7 @@ class ReportController {
     }
     static async getDInvReportDetail(req, res) {
 
-        const data = await dInventoryReport.findById(req.body.Id).pretty();;
+        const data = await dInventoryReport.findById(req.body.Id).pretty();
 
         new SuccessResponse({
             message: "Detail Inventory Report !",

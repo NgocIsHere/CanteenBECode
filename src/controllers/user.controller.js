@@ -5,7 +5,7 @@ import UserService from "../services/user.service.js";
 class UserController {
   static async updateInfo(req, res) {
     const userUpdate = await UserService.updateUser({
-      ...req.body,
+      ...res.body,
       userId: req.user._id,
     });
 
