@@ -86,7 +86,7 @@ class ReportService {
         for (const itemL of lossItems){
             lossM += itemL.item_cost;
         }
-        var prof = income - lossM;
+        var prof = money - lossM;
         const DInvReport = await dIncomeReport.create({
             user_id: convertToObjectId(userId),
             sale_quantity: sales,
