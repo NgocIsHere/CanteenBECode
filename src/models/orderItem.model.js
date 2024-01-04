@@ -9,6 +9,10 @@ const orderItemSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "order",
     },
+    item_image:{
+      type: String,
+      required: true
+    },
     item_id: {
       type: Schema.Types.ObjectId,
       ref: "item",
