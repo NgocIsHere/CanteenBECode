@@ -24,7 +24,6 @@ class ItemService {
         results.push(newItem);
       }
     }
-
     return results;
   }
 
@@ -38,6 +37,12 @@ class ItemService {
 
   static async deleteItem(itemId) {
     return item.findOneAndDelete({ _id: itemId });
+  }
+  static async deleteItemMain() {
+    const listMain = item.find({item_type: "main"}).lean();
+    for(const mItem of listMain){
+      item.findOneAndDelete({ _id: mItem._id });
+    }
   }
 }
 

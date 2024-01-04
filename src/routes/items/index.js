@@ -27,5 +27,9 @@ itemsRoute.delete(
   checkRole(["staff", "admin"]),
   asyncHandler(ItemController.deleteItem)
 );
-
+itemsRoute.delete(
+  "/main/delete",
+  checkRole(["staff", "admin"]),
+  asyncHandler(ItemController.deleteItemMain)
+);
 export default itemsRoute;

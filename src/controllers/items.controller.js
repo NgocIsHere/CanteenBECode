@@ -40,6 +40,12 @@ class ItemController {
       data,
     }).send(res);
   }
+  static async deleteItemMain(req, res) {
+    await ItemService.deleteItemMain();
+    new SuccessResponse({
+      message: "Delete daily item successfully!",
+    }).send(res);
+  }
 }
 
 export default ItemController;
