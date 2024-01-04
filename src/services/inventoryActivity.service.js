@@ -66,6 +66,7 @@ class inventoryActivityService {
             await updateQuantityinventoryItem(convertToObjectId(element.inventoryItem), - element.item_quantity);
             leaveItemAct.leave_list.push({
                 inventoryItem: element.inventoryItem,
+                inventoryName: invenItem.inventoryItem_img,
                 cost : invenItem.cost,
                 quantity:element.item_quantity,
                 price: element.price,
