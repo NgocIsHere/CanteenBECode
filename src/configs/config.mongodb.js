@@ -1,29 +1,36 @@
-const dev = {
-  app: {
-    port: process.env.DEV_APP_PORT || 8080,
-  },
-  db: {
-    // host: process.env.DEV_DB_HOST || "127.0.0.1",
-    // port: process.env.DEV_DB_PORT || 27017,
-    // name: process.env.DEV_DB_NAME || "canteenDEV",
-    user: process.env.MONGO_USER || "127.0.0.1",
-    password: process.env.MONGO_PASSWORD || 27017,
-    dbname: process.env.MONGO_DB_NAME || "canteenmanagement"
-  },
-};
+import dotenv from 'dotenv';
 
-const pro = {
-  app: {
-    port: process.env.PRO_APP_PORT || 8080,
-  },
-  db: {
-    host: process.env.PRO_DB_HOST || "127.0.0.1",
-    port: process.env.PRO_DB_PORT || 27017,
-    name: process.env.PRO_DB_NAME || "canteenPRO",
-  },
-};
+dotenv.config();
 
-const config = { dev, pro };
 const env = process.env.NODE_ENV || "dev";
 
-export default config[env];
+const config = {
+  dev: {
+    app: {
+      port: process.env.DEV_APP_PORT || 8080,
+    },
+    db: {
+      host: process.env.MONGO_DEV_HOST || "127.0.0.1",
+      port: process.env.MONGO_DEV_PORT || 27017,
+      name: process.env.MONGO_DEV_DB_NAME || "canteenDEV",
+    },
+  },
+  pro: {
+    app: {
+      port: process.env.PRO_APP_PORT || 8080,
+    },
+    db: {
+      host: process.env.PRO_DB_HOST || "127.0.0.1",
+      port: process.env.PRO_DB_PASSWORD || 27017,
+      name: process.env.PRO_DB_NAME || "canteenPRO",
+    },
+  },
+};
+
+const { host, port, name } = config[env].db;
+
+const connectString = {
+  dev: `mongodb://${host}:${port}/${name}`,
+  pro: `mongodb+srv://${host}:${port}@canteenmanagement.qbhpovo.mongodb.net/${name}?retryWrites=true&w=majority`,
+};
+export { config, connectString };

@@ -1,17 +1,8 @@
 import mongoose from 'mongoose';
-import config from "../configs/config.mongodb.js";
+import  { config, connectString } from "../configs/config.mongodb.js";
 import { countConnect } from "../helpers/check.connect.js";
 
-// const {
-//   db: { host, port, name },
-// } = config;
-// const connectString = `mongodb://${host}:${port}/${name}`;
-
-const {
-  db: { user, password, dbname },
-} = config;
-const connectString = `mongodb+srv://borua1611:ngoc123@canteenmanagement.qbhpovo.mongodb.net/canteenmanagement?retryWrites=true&w=majority`
-
+const env = process.env.NODE_ENV || "dev";
 class Database {
   constructor() {
     this.connect();
@@ -19,7 +10,7 @@ class Database {
 
   connect() {
     mongoose
-    .connect(connectString)
+    .connect(connectString[env])
       .then(() => {
         // Assuming countConnect is defined
         countConnect();
