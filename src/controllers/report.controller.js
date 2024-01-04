@@ -29,7 +29,9 @@ class ReportController {
     }
     static async getDInvReportDetail(req, res) {
 
-        const data = await ReportService.getDInvReportDetail();
+        const data = await ReportService.getDInvReportDetail({
+            Id: req.query.Id
+          });
 
         new SuccessResponse({
             message: "Detail Inventory Report !",

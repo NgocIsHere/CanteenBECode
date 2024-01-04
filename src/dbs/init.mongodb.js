@@ -7,9 +7,9 @@ import { countConnect } from "../helpers/check.connect.js";
 // } = config;
 // const connectString = `mongodb://${host}:${port}/${name}`;
 
-// const {
-//   db: { user, password, dbname },
-// } = config;
+const {
+  db: { user, password, dbname },
+} = config;
 const connectString = `mongodb+srv://borua1611:ngoc123@canteenmanagement.qbhpovo.mongodb.net/canteenmanagement?retryWrites=true&w=majority`
 
 class Database {

@@ -68,8 +68,8 @@ class ReportService {
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time);
     }
-    static async getDInvReportDetail(Id) {
-        return await dInventoryReport.findOne({_id: Id});
+    static async getDInvReportDetail({Id}) {
+        return await dInventoryReport.findOne({_id: convertToObjectId(Id)}).populate("inventory_list");
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
