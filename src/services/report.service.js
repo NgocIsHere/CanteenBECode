@@ -2,6 +2,7 @@ import ErrorResponse from "../core/error.response.js";
 import dInventoryReport from "../models/inventoryDReport.model.js";
 import dIncomeReport from "../models/incomeDReport.model.js";
 import mIncomeReport from "../models/incomeMReport.model.js";
+import User from "../models/user.model.js";
 import {findInvReportByTime, findInvReportByUser, findDIncReportByTime, findDIncReportByUser, findMIncReportByTime, findMIncReportByUser }
     from "../models/repositories/report.repo.js"
 import { findinventoryComeVoucherByTime, findinventoryDeleteVoucherTime, findinventoryLeaveVoucherTime }
@@ -17,9 +18,10 @@ class ReportService {
         var list = await inventoryItemService.getAllinventoryItem();
         var listC = await findinventoryComeVoucherByTime(datetime);
         var listL = await findinventoryLeaveVoucherTime(datetime);
+        const user = await User.findById(userId)
         const DInvReport = await dInventoryReport.create({
             user_id: convertToObjectId(userId),
-            creator: await User.findById(userId).name
+            creator: user.name,
         });
     
         for (const item of list) {
@@ -90,9 +92,10 @@ class ReportService {
         }
         let prof = 0;
         prof = money - lossM;
+        const user = await User.findById(userId)
         const DInvReport = await dIncomeReport.create({
             user_id: convertToObjectId(userId),
-            creator: await User.findById(userId).name,
+            creator: user.name,
             sale_quantity: sales,
             loss_quantity: numLoss,
             income: money,
@@ -123,9 +126,10 @@ class ReportService {
             prof += ob.profit,
             lossM += ob.loss_money
         }
+        const user = await User.findById(userId)
         const DInvReport = await mIncomeReport.create({
             user_id: convertToObjectId(userId),
-            creator: await User.findById(userId).name,
+            creator: user.name,
             sale_quantity: sale,
             loss_quantity: lossQ,
             income: inC,
