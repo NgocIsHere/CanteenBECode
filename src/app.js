@@ -27,6 +27,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(compression());
 
+
 // Init databases
 import "./dbs/init.mongodb.js";
 
