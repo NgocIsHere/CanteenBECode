@@ -1,5 +1,3 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
 const dev = {
   app: {
     port: process.env.DEV_APP_PORT || 8080,
@@ -8,6 +6,9 @@ const dev = {
     host: process.env.DEV_DB_HOST || "127.0.0.1",
     port: process.env.DEV_DB_PORT || 27017,
     name: process.env.DEV_DB_NAME || "canteenDEV",
+    user: process.env.MONGO_USER || "borua1611",
+    password: process.env.MONGO_PASSWORD || "ngoc123",
+    dbname: process.env.MONGO_DB_NAME || "canteenmanagement"
   },
 };
 
@@ -21,7 +22,8 @@ const pro = {
     name: process.env.PRO_DB_NAME || "canteenPRO",
   },
 };
-const env = process.env.NODE_ENV || "dev";
-const config = { dev, pro };
 
-export default config;
+const config = { dev, pro };
+const env = process.env.NODE_ENV || "dev";
+
+export default config[env];
