@@ -5,12 +5,24 @@ import UserService from "../services/user.service.js";
 class UserController {
   static async updateInfo(req, res) {
     const userUpdate = await UserService.updateUser({
-      ...res.body,
+      ...req.body,
       userId: req.user._id,
     });
 
     new SuccessResponse({
       message: "User info updated successfully",
+      data: userUpdate,
+    }).send(res);
+  }
+  static async updateInfoStaff(req, res) {
+    const { id } = req.params;
+    const userUpdate = await UserService.updateUser({
+      ...req.body,
+      userId: id
+    });
+
+    new SuccessResponse({
+      message: "Staff info updated successfully",
       data: userUpdate,
     }).send(res);
   }
