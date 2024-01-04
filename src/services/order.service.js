@@ -52,7 +52,9 @@ class OrderService {
   static async getAllOrders() {
     return await order.find();
   }
-
+  static async getPendingOrders() {
+    return await order.find({order_status: "pending"});
+  }
   static async getAllOrdersOfUser(userId) {
     return await order.find({ user_id: convertToObjectId(userId) });
   }

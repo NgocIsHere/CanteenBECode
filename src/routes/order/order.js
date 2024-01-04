@@ -15,7 +15,11 @@ orderRoute.get(
   checkRole(["staff","admin"]),
   asyncHandler(OrderController.getAllOrders)
 );
-
+orderRoute.get(
+  "/pending",
+  checkRole(["staff","admin"]),
+  asyncHandler(OrderController.getPendingOrders)
+);
 orderRoute.get("/details", asyncHandler(OrderController.getOrderDetail));
 
 orderRoute.get("/search", asyncHandler(OrderController.searchOrder));

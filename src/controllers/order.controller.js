@@ -22,7 +22,14 @@ class OrderController {
       data,
     }).send(res);
   }
+  static async getPendingOrders(req, res) {
+    const data = await OrderService.getPendingOrders();
 
+    new SuccessResponse({
+      message: "All Pending Orders Of User",
+      data,
+    }).send(res);
+  }
   static async getAllOrdersOfUser(req, res) {
     const data = await OrderService.getAllOrdersOfUser(req.params.userId);
 
