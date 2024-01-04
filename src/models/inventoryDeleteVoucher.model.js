@@ -15,8 +15,11 @@ const inventoryDeleteVoucherSchema = new Schema(
         },
         delete_list: [
             {
-
                 inventoryItem: {
+                    type: String,
+                    required: true,
+                },
+                inventoryName: {
                     type: String,
                     required: true,
                 },

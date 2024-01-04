@@ -18,6 +18,10 @@ const inventoryLeaveVoucherSchema = new Schema(
                 type: String,
                 ref: "inventoryItem",
             },
+            inventoryName: {
+                type: String,
+                required: true,
+            },
             quantity: {
                 type: Number,
             },

@@ -45,11 +45,11 @@ class ReportService {
             }
     
             let initN = quantityN + leaveN - comeN;
-    
             DInvReport.inventory_list.push({
                 init: initN,
                 quantity: quantityN,
                 item_id: convertToObjectId(item_idN),
+                inventoryName: item.inventoryItem_name,
                 leave: leaveN,
                 come: comeN
             });
