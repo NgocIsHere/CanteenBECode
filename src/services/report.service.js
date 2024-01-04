@@ -72,18 +72,18 @@ class ReportService {
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
         var sales = 0;
-        const lossItems = await item.find({});
+        const lossItems = await item.find({item_type: "main"});
         var numLoss = 0;
         for (const itemL of lossItems){
             numLoss += itemL.item_quantity;
         }
         const listOrder = await order.find({createdAt: new Date(), order_status: "completed"})
-        let money = 0;
+        var money = 0;
         for (const ob of listOrder){
             money += ob.order_total_price;
             sales += 1
         }
-        let lossM = 0;
+        var lossM = 0;
         for (const itemL of lossItems){
             lossM += itemL.item_cost;
         }

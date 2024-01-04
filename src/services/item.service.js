@@ -39,10 +39,7 @@ class ItemService {
     return item.findOneAndDelete({ _id: itemId });
   }
   static async deleteItemMain() {
-    const listMain = item.find({item_type: "main"}).lean();
-    for(const mItem of listMain){
-      item.findOneAndDelete({ _id: mItem._id });
-    }
+    return await item.deleteMany({item_type: "main"}).lean();
   }
 }
 
