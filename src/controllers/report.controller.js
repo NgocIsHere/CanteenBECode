@@ -1,6 +1,6 @@
 import SuccessResponse from "../core/success.response.js";
 import ReportService from "../services/report.service.js";
-
+import dInventoryReport from "../models/inventoryDReport.model.js";
 class ReportController {
     //createDInvReport, getAllDInvReport, getDInvReport
     static async createDInvReport(req, res) {
@@ -28,7 +28,8 @@ class ReportController {
         }).send(res);
     }
     static async getDInvReportDetail(req, res) {
-        const data = await ReportService.getDInvReportDetail(req.body.Id);
+
+        const data = await dInventoryReport.findById(req.body.Id);
 
         new SuccessResponse({
             message: "Detail Inventory Report !",

@@ -56,7 +56,7 @@ class OrderService {
     return await order.find({ user_id: convertToObjectId(userId) });
   }
 
-  static async getOrderDetail({ orderId, userId }) {
+  static async getOrderDetail({ orderId }) {
     return await order
       .findOne({
         _id: convertToObjectId(orderId)
