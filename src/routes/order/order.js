@@ -12,7 +12,7 @@ orderRoute.post("/new", asyncHandler(OrderController.createOrder));
 
 orderRoute.get(
   "/",
-  checkRole(["staff"]),
+  checkRole(["staff","admin"]),
   asyncHandler(OrderController.getAllOrders)
 );
 
