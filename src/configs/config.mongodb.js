@@ -27,7 +27,7 @@ const config = {
   },
 };
 
-const { host, port, name } = config[env].db;
+const { db: { host, port, name }} = config[env];
 
 const connectString = {
   dev: `mongodb://${host}:${port}/${name}`,
