@@ -34,8 +34,7 @@ class OrderController {
 
   static async getOrderDetail(req, res) {
     const data = await OrderService.getOrderDetail({
-      orderId: req.query.orderId,
-      userId: req.query.userId,
+      orderId: req.query.orderId
     });
 
     new SuccessResponse({

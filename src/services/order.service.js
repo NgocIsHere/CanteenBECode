@@ -59,8 +59,7 @@ class OrderService {
   static async getOrderDetail({ orderId, userId }) {
     return await order
       .findOne({
-        _id: convertToObjectId(orderId),
-        user_id: convertToObjectId(userId),
+        _id: convertToObjectId(orderId)
       })
       .populate("list_items");
   }

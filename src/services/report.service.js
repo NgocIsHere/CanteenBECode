@@ -8,8 +8,8 @@ import { findinventoryComeVoucherByTime, findinventoryDeleteVoucherTime, findinv
     from "../models/repositories/inventoryActivities.repo.js"
 import inventoryItemService from "../services/inventoryItem.service.js"
 import { convertToObjectId } from "../utils/index.js";
-
-
+import order from "../models/order.model.js";
+import item from "../models/item.model.js";
 class ReportService {
     static async createDInvReport(userId) {
         var datetime = new Date();
@@ -71,13 +71,29 @@ class ReportService {
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
+        const sales = await order.countDocuments({createdAt: new Date(), order_status: "completed"})
+        const lossItems = await item.find({});
+        var numLoss = 0;
+        for (const itemL of lossItems){
+            numLoss += itemL.item_quantity;
+        }
+        const listOrder = await order.find({createdAt: new Date(), order_status: "completed"})
+        var money = 0;
+        for (const ob of listOrder){
+            money += ob.order_total_price;
+        }
+        var lossM = 0;
+        for (const itemL of lossItems){
+            lossM += itemL.item_cost;
+        }
+        var prof = income - lossM;
         const DInvReport = await dIncomeReport.create({
             user_id: convertToObjectId(userId),
-            sale_quantity: 0,
-            loss_quantity:0,
-            income: 0,
-            profit: 0,
-            loss_money: 0
+            sale_quantity: sales,
+            loss_quantity: numLoss,
+            income: money,
+            profit: prof,
+            loss_money: lossM
         });
     }
     static async getAllDIncReport() {
