@@ -26,7 +26,7 @@ class UserService {
     const userUpdate = await User.findOneAndUpdate(
       { _id: userId },
       {
-        name, // Update name if provided
+        name,
         password : password ? await hashPassWord(password) : foundUser.password,
         attributes
       },

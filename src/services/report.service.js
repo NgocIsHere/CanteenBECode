@@ -63,7 +63,7 @@ class ReportService {
         return DInvReport;
     }
     static async getAllDInvReport() {
-        return dInventoryReport.find({});
+        return dInventoryReport.find();
     }
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time);

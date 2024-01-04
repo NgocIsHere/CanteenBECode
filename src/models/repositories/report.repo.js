@@ -17,7 +17,7 @@ const findDIncReportByTime = async(Time) => {
     });
 };
 const findDIncReportByUser = async(userId) => {
-    return dIncomeReport.findOne({
+    return dIncomeReport.find({
         user_id: userId
     });
 };
@@ -27,7 +27,7 @@ const findMIncReportByTime = async(Time) => {
     });
 };
 const findMIncReportByUser = async(userId) => {
-    return mIncomeReport.findOne({
+    return mIncomeReport.find({
         user_id: userId
     });
 };
