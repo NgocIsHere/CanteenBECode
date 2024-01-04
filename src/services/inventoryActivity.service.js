@@ -49,20 +49,16 @@ class inventoryActivityService {
         });
         for (let element of item_list) {
             const invenItem = await findinventoryItemById(convertToObjectId(element.inventoryItem));
-            const existItem = await item.find({item_name: invenItem.inventoryItem_name})
-            if(existItem){
-                await updateQuantityItem(existItem.item_name,element.item_quantity)
-            }
-            else{
-                const newItem = await item.create({
-                    item_name: invenItem.inventoryItem_name,
-                    item_image: invenItem.inventoryItem_img,
-                    item_price: element.price,
-                    item_quantity: element.item_quantity,
-                    item_cost: invenItem.cost,
-                    item_type: "inven"
-                });
-            }
+            
+            const newItem = await item.create({
+                item_name: invenItem.inventoryItem_name,
+                item_image: invenItem.inventoryItem_img,
+                item_price: element.price,
+                item_quantity: element.item_quantity,
+                item_cost: invenItem.cost,
+                item_type: "inven"
+            });
+            
             await updateQuantityinventoryItem(convertToObjectId(element.inventoryItem), - element.item_quantity);
             leaveItemAct.leave_list.push({
                 inventoryItem: element.inventoryItem,
