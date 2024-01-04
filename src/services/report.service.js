@@ -78,15 +78,15 @@ class ReportService {
             numLoss += itemL.item_quantity;
         }
         const listOrder = await order.find({createdAt: new Date(), order_status: "completed"})
-        var money = 0;
+        let money = 0;
         for (const ob of listOrder){
             money += ob.order_total_price;
         }
-        var lossM = 0;
+        let lossM = 0;
         for (const itemL of lossItems){
             lossM += itemL.item_cost;
         }
-        var prof = 0;
+        let prof = 0;
         prof = money - lossM;
         const DInvReport = await dIncomeReport.create({
             user_id: convertToObjectId(userId),
@@ -96,6 +96,7 @@ class ReportService {
             profit: 12350000,
             loss_money: 3421000
         });
+        return DInvReport;
     }
     static async getAllDIncReport() {
         return dIncomeReport.find({});
@@ -105,15 +106,29 @@ class ReportService {
     }
 
     static async createMIncReport(userId) {
-        //user_id,sale_quantity,loss_quantity,profit,loss_money,
+        //user_id,sale_quantity,loss_quantity,profit,loss_money
+        const dailyList = await dIncomeReport.find({});
+        let sale = 0;
+        let lossQ = 0;
+        let inC = 0;
+        let prof = 0;
+        let lossM = 0;
+        for(const ob of dailyList){
+            sale +=ob.sale_quantity,
+            lossQ += ob.loss_quantity,
+            inC += ob.income,
+            prof += ob.profit,
+            lossM += ob.loss_money
+        }
         const DInvReport = await mIncomeReport.create({
             user_id: convertToObjectId(userId),
-            sale_quantity: 0,
-            loss_quantity:0,
-            income: 0,
-            profit: 0,
-            loss_money: 0
+            sale_quantity: sale,
+            loss_quantity: lossQ,
+            income: inC,
+            profit: prof,
+            loss_money: lossM
         });
+        return DInvReport
     }
     static async getAllMIncReport() {
         return await mIncomeReport.find({});
