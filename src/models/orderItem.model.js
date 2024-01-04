@@ -11,7 +11,6 @@ const orderItemSchema = new Schema(
     },
     item_image:{
       type: String,
-      required: true
     },
     item_id: {
       type: Schema.Types.ObjectId,
