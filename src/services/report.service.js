@@ -67,11 +67,11 @@ class ReportService {
     }
     static async getDInvReportDetail(Id) {
         return await dInventoryReport
-        .find({_id: Id,inventory_list:{$elemMatch:{init : 0, quantity : 0, leave: 0, come: 0}}});
+        .find({_id: Id});
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
-        const sales = await order.countDocuments({createdAt: new Date(), order_status: "completed"})
+        var sales = 0;
         const lossItems = await item.find({});
         var numLoss = 0;
         for (const itemL of lossItems){
@@ -81,6 +81,7 @@ class ReportService {
         let money = 0;
         for (const ob of listOrder){
             money += ob.order_total_price;
+            sales += 1
         }
         let lossM = 0;
         for (const itemL of lossItems){

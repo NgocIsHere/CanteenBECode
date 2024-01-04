@@ -35,6 +35,7 @@ class OrderService {
       const newOrderItem = await orderItem.create({
         order_id: newOrder._id,
         item_id: itemInDb._id,
+        item_image: itemInDb.item_image,
         quantity: item.item_quantity,
         item_name: itemInDb.item_name,
         item_price: itemInDb.item_price,
