@@ -10,6 +10,10 @@ const inventoryDeleteVoucherSchema = new Schema(
             ref: "user",
             required: true,
         },
+        creator: {
+            type: String,
+            required: true
+        },
         delete_list: [
             {
 

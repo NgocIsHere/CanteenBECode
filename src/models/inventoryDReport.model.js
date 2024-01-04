@@ -10,6 +10,10 @@ const dinventoryReportSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "user",
         },
+        creator: {
+          type: String,
+          required: true
+        },
         inventory_list: [{
             item_id: {
               type: Schema.Types.ObjectId,

@@ -10,6 +10,10 @@ const reportItemSchema = new Schema(
         ref: "user",
         required: true,
       },
+      creator: {
+        type: String,
+        required: true
+      },
       sale_quantity:{
         type: Number, // Số lượng lấy từ order
         required: true,

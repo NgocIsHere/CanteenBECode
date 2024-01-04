@@ -10,6 +10,10 @@ const inventoryComeVoucherSchema = new Schema(
             ref: "user",
             required: true,
         },
+        creator: {
+            type: String,
+            required: true
+        },
         come_list: [
             {
                 inventoryItem_name: {

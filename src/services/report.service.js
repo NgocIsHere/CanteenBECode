@@ -18,7 +18,8 @@ class ReportService {
         var listC = await findinventoryComeVoucherByTime(datetime);
         var listL = await findinventoryLeaveVoucherTime(datetime);
         const DInvReport = await dInventoryReport.create({
-            user_id: convertToObjectId(userId)
+            user_id: convertToObjectId(userId),
+            creator: await User.findById(userId).name
         });
     
         for (const item of list) {
@@ -91,6 +92,7 @@ class ReportService {
         prof = money - lossM;
         const DInvReport = await dIncomeReport.create({
             user_id: convertToObjectId(userId),
+            creator: await User.findById(userId).name,
             sale_quantity: sales,
             loss_quantity: numLoss,
             income: money,
@@ -123,6 +125,7 @@ class ReportService {
         }
         const DInvReport = await mIncomeReport.create({
             user_id: convertToObjectId(userId),
+            creator: await User.findById(userId).name,
             sale_quantity: sale,
             loss_quantity: lossQ,
             income: inC,

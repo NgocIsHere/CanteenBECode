@@ -10,6 +10,10 @@ const inventoryLeaveVoucherSchema = new Schema(
             ref: "user",
             required: true,
         },
+        creator: {
+            type: String,
+            required: true
+          },
         leave_list: [{
             inventoryItem:{
                 type: String,

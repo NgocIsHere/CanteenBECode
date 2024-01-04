@@ -3,18 +3,20 @@ import inventoryComeVoucher from '../models/inventoryComeVoucher.model.js';
 import inventoryItem from "../models/inventoryItem.model.js";
 import inventoryDeleteVoucher from "../models/inventoryDeleteVoucher.model.js";
 import item from "../models/item.model.js";
-
+import User from "../models/user.model.js";
 import {
     updateQuantityinventoryItem, findinventoryItemById
 } from "../models/repositories/inventoryItem.repo.js"
 import { convertToObjectId } from "../utils/index.js";
 import { updateQuantityItem } from "../models/repositories/item.repo.js";
-
+ 
 class inventoryActivityService {
     static async createComeVoucher(infoCvoucher) {
         const { userId, item_list} = infoCvoucher;
+
         const newComeVoucher = await inventoryComeVoucher.create({
             user_id: convertToObjectId(userId),
+            creator: await User.findById(userId).name
         });
         for (let item of item_list) {
             const newInventoryItem = await inventoryItem.create({
@@ -42,6 +44,7 @@ class inventoryActivityService {
         const { userId, item_list } = infoLvoucher;
         const leaveItemAct = await inventoryLeaveVoucher.create({
             user_id: convertToObjectId(userId),
+            creator: await User.findById(userId).name
         });
         for (let element of item_list) {
             const invenItem = await findinventoryItemById(convertToObjectId(element.inventoryItem));
@@ -81,6 +84,7 @@ class inventoryActivityService {
         const { userId, item_list } = infoDvoucher;
         const deleteItemAct = await inventoryDeleteVoucher.create({
             user_id: convertToObjectId(userId),
+            creator: await User.findById(userId).name
         });
         for(let item of item_list){
             var deleteItem = await findinventoryItemById(item.inventoryItem);
