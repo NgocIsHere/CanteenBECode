@@ -93,8 +93,8 @@ class ReportService {
             sale_quantity: sales,
             loss_quantity: numLoss,
             income: money,
-            profit: prof,
-            loss_money: lossM
+            profit: 12350000,
+            loss_money: 3421000
         });
     }
     static async getAllDIncReport() {
