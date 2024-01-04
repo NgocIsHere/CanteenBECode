@@ -67,7 +67,7 @@ class ReportService {
     }
     static async getDInvReportDetail(Id) {
         return await dInventoryReport
-        .findOne({ _id: convertToObjectId(Id)});
+        .findById(convertToObjectId(Id));
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
