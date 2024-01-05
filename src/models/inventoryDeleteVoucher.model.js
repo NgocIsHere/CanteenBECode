@@ -21,11 +21,9 @@ const inventoryDeleteVoucherSchema = new Schema(
                 },
                 inventoryName: {
                     type: String,
-                    required: true,
                 },
                 quantity: {
                     type: Number,
-                    required: true,
                 }
             }
         ]

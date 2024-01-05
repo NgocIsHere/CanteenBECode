@@ -89,7 +89,7 @@ class inventoryActivityService {
         for(let item of item_list){
             var deleteItem = await findinventoryItemById(item.inventoryItem);
             var Quantity = deleteItem.inventoryItem_quantity;
-            deleteItemAct.delete_list.push({inventoryItem: item.inventoryItem, quantity: Quantity});
+            deleteItemAct.delete_list.push({inventoryItem: item.inventoryItem,inventoryName:item.inventoryItem_name, quantity: Quantity});
             await inventoryItem.findOneAndDelete({ _id: convertToObjectId(item.inventoryItem) });
         }
         await deleteItemAct.save();
