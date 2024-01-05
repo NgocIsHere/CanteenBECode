@@ -71,7 +71,7 @@ class ReportService {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail(Id) {
-        const report = await dInventoryReport.findById(Id);
+        const report = await dInventoryReport.findOne({_id:convertToObjectId(Id)}).populate("inventory_list");;
         return report;
     }
     static async createDIncReport(userId) {
