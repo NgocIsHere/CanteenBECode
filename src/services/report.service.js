@@ -48,7 +48,7 @@ class ReportService {
             DInvReport.inventory_list.push({
                 init: initN,
                 quantity: quantityN,
-                item_id: convertToObjectId(item_idN),
+                item_id: item_idN.toString(),
                 inventoryName: item.inventoryItem_name,
                 leave: leaveN,
                 come: comeN,
@@ -69,9 +69,8 @@ class ReportService {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail({Id,user}) {
-        const reports = await dInventoryReport.find();
-        const inventoryLists = reports.map(report => report.inventory_list);
-        return inventoryLists;
+        const report = await dInventoryReport.findOne({_id:Id, user_id:user});
+        return report;
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,

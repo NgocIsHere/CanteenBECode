@@ -31,7 +31,7 @@ class ReportController {
 
         const data = await ReportService.getDInvReportDetail({
             Id: req.query.Id,
-            user: req.body.userId
+            user: req.query.userId
           });
 
         new SuccessResponse({

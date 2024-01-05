@@ -15,9 +15,8 @@ const dinventoryReportSchema = new Schema(
         },
         inventory_list: [{
             item_id: {
-              type: Schema.Types.ObjectId,
-              ref: "inventoryItem",
-              required: true,
+              type: String,
+              required:true,
             },
             inventoryName: {
               type: String,

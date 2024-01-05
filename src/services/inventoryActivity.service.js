@@ -49,24 +49,25 @@ class inventoryActivityService {
         });
         for (let element of item_list) {
             const invenItem = await findinventoryItemById(convertToObjectId(element.inventoryItem));
+            if(element.item_quantity <= invenItem.inventoryItem_quantity){
+                const newItem = await item.create({
+                    item_name: invenItem.inventoryItem_name,
+                    item_image: invenItem.inventoryItem_img,
+                    item_price: element.price,
+                    item_quantity: element.item_quantity,
+                    item_cost: invenItem.cost,
+                    item_type: "inven"
+                });
+                await updateQuantityinventoryItem(convertToObjectId(element.inventoryItem), - element.item_quantity);
+                leaveItemAct.leave_list.push({
+                    inventoryItem: element.inventoryItem,
+                    inventoryName: invenItem.inventoryItem_name,
+                    cost : invenItem.cost,
+                    quantity:element.item_quantity,
+                    price: element.price,
+                })
+            }
             
-            const newItem = await item.create({
-                item_name: invenItem.inventoryItem_name,
-                item_image: invenItem.inventoryItem_img,
-                item_price: element.price,
-                item_quantity: element.item_quantity,
-                item_cost: invenItem.cost,
-                item_type: "inven"
-            });
-            
-            await updateQuantityinventoryItem(convertToObjectId(element.inventoryItem), - element.item_quantity);
-            leaveItemAct.leave_list.push({
-                inventoryItem: element.inventoryItem,
-                inventoryName: invenItem.inventoryItem_name,
-                cost : invenItem.cost,
-                quantity:element.item_quantity,
-                price: element.price,
-            })
         }
         await leaveItemAct.save();     
         return leaveItemAct;
