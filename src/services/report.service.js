@@ -142,7 +142,7 @@ class ReportService {
         const day = new Date();
         const month = day.getMonth() + 1;
         const year = day.getUTCFullYear();
-        var startOfMonth = new Date(year, month, 1);
+        var startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
         const dailyList = await dIncomeReport.find({
             "createdAt": {
                 "$gte": startOfMonth,
