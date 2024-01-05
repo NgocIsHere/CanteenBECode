@@ -26,7 +26,7 @@ const reportItemSchema = new Schema(
         required: true,
       },
       profit:{
-        type: Number, // 
+        type: Number,
         required: true,
       },
       loss_money:{

@@ -4,7 +4,7 @@ import dIncomeReport from "../models/incomeDReport.model.js";
 import mIncomeReport from "../models/incomeMReport.model.js";
 import invReportItem from "../models/invReportItem.model.js";
 import User from "../models/user.model.js";
-import {findInvReportByTime, findInvReportByUser, findDIncReportByTime, findDIncReportByUser, findMIncReportByTime, findMIncReportByUser }
+import { findInvReportByTime, findInvReportByUser, findDIncReportByTime, findDIncReportByUser, findMIncReportByTime, findMIncReportByUser }
     from "../models/repositories/report.repo.js"
 import { findinventoryComeVoucherByTime, findinventoryDeleteVoucherTime, findinventoryLeaveVoucherTime }
     from "../models/repositories/inventoryActivities.repo.js"
@@ -25,27 +25,27 @@ class ReportService {
             user_id: convertToObjectId(userId),
             creator: user.name,
         });
-    
+
         for (const item of list) {
             let item_idN = item._id;
             let quantityN = item.inventoryItem_quantity;
             let leaveN = 0;
             let comeN = 0;
-            for(const ob of listC){
+            for (const ob of listC) {
                 for (const itemC of ob.come_list) {
                     if (item.inventoryItem_name == itemC.inventoryItem_name && item.inventoryItem_exp == itemC.inventoryItem_exp) {
                         comeN += itemC.inventoryItem_quantity;
                     }
                 }
             };
-            for(const ob of listL){
+            for (const ob of listL) {
                 for (const itemC of ob.leave_list) {
                     if (item._id == itemC.inventoryItem) {
                         leaveN += itemC.quantity;
                     }
                 }
             };
-    
+
             let initN = quantityN + leaveN - comeN;
             const newInvRItem = await invReportItem.create({
                 init: initN,
@@ -58,11 +58,11 @@ class ReportService {
             DInvReport.inventory_list.push(newInvRItem._id);
         }
         const listD = await findinventoryDeleteVoucherTime(datetime);
-        for(const ob of listD){
+        for (const ob of listD) {
             DInvReport.deleted_item.push(ob._id);
         }
         await DInvReport.save(); // Wait for the save operation to complete
-        
+
         return DInvReport;
     }
     static async getAllDInvReport() {
@@ -71,9 +71,9 @@ class ReportService {
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time);
     }
-    static async getDInvReportDetail({reportId}) {
+    static async getDInvReportDetail({ reportId }) {
         const invR = await dInventoryReport.findOne({ _id: reportId });
-        
+
         if (!invR) {
             throw new Error("Inventory report not found");
         }
@@ -85,48 +85,49 @@ class ReportService {
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
         var sales = 0;
-        const lossItems = await item.find({item_type: "main"});
+        const lossItems = await item.find({ item_type: "main" });
         const day = new Date();
         const startDay = (new Date()).setHours(0, 0, 0, 0);
-        const deleteItems = await inventoryDeleteVoucher.find({"createdAt": {
-            "$gte": startDay,
-            "$lt": day
-        } })
+        const deleteItems = await inventoryDeleteVoucher.find({
+            "createdAt": {
+                "$gte": startDay,
+                "$lt": day
+            }
+        })
         var numLoss = 0;
         var lossM = 0;
-        for (const itemL of lossItems){
+        for (const itemL of lossItems) {
             numLoss += itemL.item_quantity;
-            lossM += itemL.item_cost;
+            if (!isNaN(itemL.item_cost) && !isNaN(itemL.item_quantity)) {
+                lossM += itemL.item_cost * itemL.item_quantity;
+            }
         }
-        for (const itemD of deleteItems){
-           for(const exp of itemD.delete_list){
-            lossM += exp.quantity*exp.cost;
-           }
+        for (const itemD of deleteItems) {
+            for (const exp of itemD.delete_list) {
+                if (!isNaN(exp.quantity) && !isNaN(exp.cost)) {
+                    lossM += exp.quantity * exp.cost;
+                }
+            }
+            const listOrder = await order.find({ order_status: "processing" })
+            var money = 0;
+            for (const ob of listOrder) {
+                money += ob.order_total_price;
+                sales += 1
+            }
+            var prof = 0;
+            prof = money - lossM;
+            const user = await User.findById(userId)
+            const DInvReport = await dIncomeReport.create({
+                user_id: convertToObjectId(userId),
+                creator: user.name,
+                sale_quantity: sales,
+                loss_quantity: numLoss,
+                income: money,
+                profit: prof,
+                loss_money: lossM
+            });
+            return DInvReport;
         }
-        const listOrder = await order.find({order_status: "completed"})
-        var money = 0;
-        for (const ob of listOrder){
-            money += ob.order_total_price;
-            sales += 1
-        }
-        
-        for (const itemL of lossItems){
-            lossM += itemL.item_cost;
-        }
-        var prof = 0;
-        prof = money - lossM;
-        const user = await User.findById(userId)
-        const DInvReport = await dIncomeReport.create({
-            user_id: convertToObjectId(userId),
-            creator: user.name,
-            sale_quantity: sales,
-            loss_quantity: numLoss,
-            income: money,
-            profit: prof,
-            loss_money: lossM
-        });
-        return DInvReport;
-    }
     static async getAllDIncReport() {
         return dIncomeReport.find({});
     }
@@ -137,24 +138,26 @@ class ReportService {
     static async createMIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money
         const day = new Date();
-        const month = day.getMonth()+1;
+        const month = day.getMonth() + 1;
         const year = day.getUTCFullYear();
         var startOfMonth = new Date(year, month, 1);
-        const dailyList = await dIncomeReport.find({"createdAt": {
-            "$gte": startOfMonth,
-            "$lt": day
-        } });
+        const dailyList = await dIncomeReport.find({
+            "createdAt": {
+                "$gte": startOfMonth,
+                "$lt": day
+            }
+        });
         let sale = 0;
         let lossQ = 0;
         let inC = 0;
         let prof = 0;
         let lossM = 0;
-        for(const ob of dailyList){
-            sale +=ob.sale_quantity,
-            lossQ += ob.loss_quantity,
-            inC += ob.income,
-            prof += ob.profit,
-            lossM += ob.loss_money
+        for (const ob of dailyList) {
+            sale += ob.sale_quantity,
+                lossQ += ob.loss_quantity,
+                inC += ob.income,
+                prof += ob.profit,
+                lossM += ob.loss_money
         }
         const user = await User.findById(userId)
         const DInvReport = await mIncomeReport.create({
