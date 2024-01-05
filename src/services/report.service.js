@@ -108,27 +108,28 @@ class ReportService {
                     lossM += exp.quantity * exp.cost;
                 }
             }
-            const listOrder = await order.find({ order_status: "processing" })
-            var money = 0;
-            for (const ob of listOrder) {
-                money += ob.order_total_price;
-                sales += 1
-            }
-            var prof = 0;
-            prof = money - lossM;
-            const user = await User.findById(userId)
-            const DInvReport = await dIncomeReport.create({
-                user_id: convertToObjectId(userId),
-                creator: user.name,
-                sale_quantity: sales,
-                loss_quantity: numLoss,
-                income: money,
-                profit: prof,
-                loss_money: lossM
-            });
-            return DInvReport;
         }
+        const listOrder = await order.find({ order_status: "processing" })
+        var money = 0;
+        for (const ob of listOrder) {
+            money += ob.order_total_price;
+            sales += 1
+        }
+        var prof = 0;
+        prof = money - lossM;
+        const user = await User.findById(userId)
+        const DInvReport = await dIncomeReport.create({
+            user_id: convertToObjectId(userId),
+            creator: user.name,
+            sale_quantity: sales,
+            loss_quantity: numLoss,
+            income: money,
+            profit: prof,
+            loss_money: lossM
+        });
+        return DInvReport;
     }
+
     static async getAllDIncReport() {
         return dIncomeReport.find({});
     }
