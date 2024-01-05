@@ -71,7 +71,7 @@ class ReportService {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail({reportId}) {
-        const invR = await dInventoryReport.find({ _id: reportId });
+        const invR = await dInventoryReport.findById(reportId) || null;
         const idlist = invR.inventory_list;
         return await invReportItem.find({ _id: { $in: idlist } }).lean();
     }
