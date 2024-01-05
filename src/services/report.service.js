@@ -71,9 +71,16 @@ class ReportService {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail({reportId}) {
-        const invR = await dInventoryReport.findById(reportId) || null;
+        const invR = await dInventoryReport.findOne({ _id: reportId });
+        
+        if (!invR) {
+            throw new Error("Inventory report not found");
+        }
+
         const idlist = invR.inventory_list;
-        return await invReportItem.find({ _id: { $in: idlist } }).lean();
+        const result = await invReportItem.find({ "_id": { $in: idlist } }).lean();
+
+        return result;
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
