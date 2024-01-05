@@ -82,7 +82,7 @@ class ReportService {
         for (const itemL of lossItems){
             numLoss += itemL.item_quantity;
         }
-        const listOrder = await order.find({createdAt: new Date(), order_status: "completed"})
+        const listOrder = await order.find({order_status: "completed"})
         var money = 0;
         for (const ob of listOrder){
             money += ob.order_total_price;
