@@ -143,12 +143,7 @@ class ReportService {
         const month = day.getMonth() + 1;
         const year = day.getUTCFullYear();
         var startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
-        const dailyList = await dIncomeReport.find({
-            "createdAt": {
-                "$gte": startOfMonth,
-                "$lt": day
-            }
-        });
+        const dailyList = await dIncomeReport.find();
         var sale = 0;
         var lossQ = 0;
         var inC = 0;
