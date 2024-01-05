@@ -70,8 +70,8 @@ class ReportService {
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time);
     }
-    static async getDInvReportDetail({Id,user}) {
-        const report = await dInventoryReport.aggregate([]);
+    static async getDInvReportDetail(Id) {
+        const report = await dInventoryReport.findById(Id);
         return report;
     }
     static async createDIncReport(userId) {
