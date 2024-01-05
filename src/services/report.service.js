@@ -2,6 +2,7 @@ import ErrorResponse from "../core/error.response.js";
 import dInventoryReport from "../models/inventoryDReport.model.js";
 import dIncomeReport from "../models/incomeDReport.model.js";
 import mIncomeReport from "../models/incomeMReport.model.js";
+import invReportItem from "../models/invReportItem.model.js";
 import User from "../models/user.model.js";
 import {findInvReportByTime, findInvReportByUser, findDIncReportByTime, findDIncReportByUser, findMIncReportByTime, findMIncReportByUser }
     from "../models/repositories/report.repo.js"
@@ -45,14 +46,15 @@ class ReportService {
             };
     
             let initN = quantityN + leaveN - comeN;
-            DInvReport.inventory_list.push({
+            const newInvRItem = await invReportItem.create({
                 init: initN,
                 quantity: quantityN,
                 item_id: item_idN.toString(),
                 inventoryName: item.inventoryItem_name,
                 leave: leaveN,
-                come: comeN,
-            });
+                come: comeN
+            })
+            DInvReport.inventory_list.push(newInvRItem._id);
         }
         const listD = await findinventoryDeleteVoucherTime(datetime);
         for(const ob of listD){
@@ -69,7 +71,7 @@ class ReportService {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail({Id,user}) {
-        const report = await dInventoryReport.findOne({_id:Id, user_id:user});
+        const report = await dInventoryReport.aggregate([]);
         return report;
     }
     static async createDIncReport(userId) {

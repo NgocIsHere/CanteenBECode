@@ -14,31 +14,9 @@ const dinventoryReportSchema = new Schema(
           type: String,
         },
         inventory_list: [{
-            item_id: {
-              type: String,
-              required:true,
-            },
-            inventoryName: {
-              type: String,
-              required: true,
-          },
-            init: {
-              type: Number, // lấy số lượng inventoryItem đầu ngày
-              required: true,
-            },
-            leave:{
-              type: Number, // số lượng xuất kho (qua item)
-              required: true,
-            },
-            come:{
-              type: Number, // số lượng nhập
-              required: true,
-            },
-            quantity: {
-              type: Number,
-              required: true,
-            }
-          }],
+          type:Schema.Types.ObjectId,
+          ref:"invReportItem"
+        }],
         deleted_item:[{
             type:Schema.Types.ObjectId,
             ref:"inventoryDeleteVoucher"
