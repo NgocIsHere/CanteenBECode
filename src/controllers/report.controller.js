@@ -30,7 +30,7 @@ class ReportController {
     static async getDInvReportDetail(req, res) {
 
         const data = await ReportService.getDInvReportDetail({
-            Id: req.query.Id
+            reportId: req.query.reportId
         });
 
         new SuccessResponse({
