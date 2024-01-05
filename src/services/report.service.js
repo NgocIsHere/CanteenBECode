@@ -12,6 +12,7 @@ import inventoryItemService from "../services/inventoryItem.service.js"
 import { convertToObjectId } from "../utils/index.js";
 import order from "../models/order.model.js";
 import item from "../models/item.model.js";
+import inventoryDeleteVoucher from "../models/inventoryDeleteVoucher.model.js";
 class ReportService {
     static async createDInvReport(userId) {
         var datetime = new Date();
@@ -85,9 +86,22 @@ class ReportService {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
         var sales = 0;
         const lossItems = await item.find({item_type: "main"});
+        const day = new Date();
+        const startDay = (new Date()).setHours(0, 0, 0, 0);
+        const deleteItems = await inventoryDeleteVoucher.find({"createdAt": {
+            "$gte": startDay,
+            "$lt": day
+        } })
         var numLoss = 0;
+        var lossM = 0;
         for (const itemL of lossItems){
             numLoss += itemL.item_quantity;
+            lossM += itemL.item_cost;
+        }
+        for (const itemD of deleteItems){
+           for(const exp of itemD.delete_list){
+            lossM += exp.quantity*exp.cost;
+           }
         }
         const listOrder = await order.find({order_status: "completed"})
         var money = 0;
@@ -95,7 +109,7 @@ class ReportService {
             money += ob.order_total_price;
             sales += 1
         }
-        var lossM = 0;
+        
         for (const itemL of lossItems){
             lossM += itemL.item_cost;
         }
@@ -122,7 +136,14 @@ class ReportService {
 
     static async createMIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money
-        const dailyList = await dIncomeReport.find({});
+        const day = new Date();
+        const month = day.getMonth()+1;
+        const year = day.getUTCFullYear();
+        var startOfMonth = new Date(year, month, 1);
+        const dailyList = await dIncomeReport.find({"createdAt": {
+            "$gte": startOfMonth,
+            "$lt": day
+        } });
         let sale = 0;
         let lossQ = 0;
         let inC = 0;

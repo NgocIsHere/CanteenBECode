@@ -87,9 +87,10 @@ class inventoryActivityService {
             creator: user.name
         });
         for(let item of item_list){
-            var deleteItem = await findinventoryItemById(item.inventoryItem);
-            var Quantity = deleteItem.inventoryItem_quantity;
-            deleteItemAct.delete_list.push({inventoryItem: item.inventoryItem,inventoryName:item.inventoryItem_name, quantity: Quantity});
+            const deleteItem = await findinventoryItemById(item.inventoryItem);
+            const Quantity = deleteItem.inventoryItem_quantity;
+            const Cost = deleteItem.cost;
+            deleteItemAct.delete_list.push({inventoryItem: item.inventoryItem, inventoryName: item.inventoryItem_name, quantity: Quantity, cost: Cost });
             await inventoryItem.findOneAndDelete({ _id: convertToObjectId(item.inventoryItem) });
         }
         await deleteItemAct.save();
