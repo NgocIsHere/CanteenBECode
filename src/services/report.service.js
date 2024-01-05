@@ -69,7 +69,9 @@ class ReportService {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail({Id,user}) {
-        return await dInventoryReport.find({_id: Id, userId: user});
+        const reports = await dInventoryReport.find();
+        const inventoryLists = reports.map(report => report.inventory_list);
+        return inventoryLists;
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
