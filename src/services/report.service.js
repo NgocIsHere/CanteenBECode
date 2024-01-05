@@ -155,11 +155,11 @@ class ReportService {
         var prof = 0;
         var lossM = 0;
         for (const ob of dailyList) {
-            sale += ob.sale_quantity,
-                lossQ += ob.loss_quantity,
-                inC += ob.income,
-                prof += ob.profit,
-                lossM += ob.loss_money
+            sale += ob.sale_quantity;
+            lossQ += ob.loss_quantity;
+            inC += ob.income;
+            prof += ob.profit;
+            lossM += ob.loss_money;
         }
         const user = await User.findById(userId)
         const DInvReport = await mIncomeReport.create({
