@@ -109,7 +109,7 @@ class ReportService {
                 }
             }
         }
-        const listOrder = await order.find({ order_status: "processing" })
+        const listOrder = await order.find({ order_status: "completed" })
         var money = 0;
         for (const ob of listOrder) {
             money += ob.order_total_price;
@@ -149,11 +149,11 @@ class ReportService {
                 "$lt": day
             }
         });
-        let sale = 0;
-        let lossQ = 0;
-        let inC = 0;
-        let prof = 0;
-        let lossM = 0;
+        var sale = 0;
+        var lossQ = 0;
+        var inC = 0;
+        var prof = 0;
+        var lossM = 0;
         for (const ob of dailyList) {
             sale += ob.sale_quantity,
                 lossQ += ob.loss_quantity,
