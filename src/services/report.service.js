@@ -128,6 +128,7 @@ class ReportService {
             });
             return DInvReport;
         }
+    }
     static async getAllDIncReport() {
         return dIncomeReport.find({});
     }
