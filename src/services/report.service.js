@@ -79,7 +79,6 @@ class ReportService {
 
         const idlist = invR.inventory_list;
         const result = await invReportItem.find({ "_id": { $in: idlist } }).lean();
-
         return result;
     }
     static async createDIncReport(userId) {
@@ -100,7 +99,7 @@ class ReportService {
         for (const itemL of lossItems){
             lossM += itemL.item_cost;
         }
-        let prof = 0;
+        var prof = 0;
         prof = money - lossM;
         const user = await User.findById(userId)
         const DInvReport = await dIncomeReport.create({
