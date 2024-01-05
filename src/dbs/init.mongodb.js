@@ -3,12 +3,9 @@ import config from "../configs/config.mongodb.js";
 import { countConnect } from "../helpers/check.connect.js";
 const env = process.env.NODE_ENV || "dev";
 const { host, port, name } = config
-const connects= {
-  dev: `mongodb://${host}:${port}/${name}`,
-  pro: `mongodb+srv://${host}:${port}@canteenmanagement.qbhpovo.mongodb.net/${name}?retryWrites=true&w=majority`,
-};
-const connectString = connects[env];
-console.log(connectString);
+const connects= `mongodb+srv://${host}:${port}@canteenmanagement.qbhpovo.mongodb.net/${name}?retryWrites=true&w=majority~`
+||`mongodb://${host}:${port}/${name}`
+const connectString = connects;
 class Database {
   constructor() {
     this.connect();

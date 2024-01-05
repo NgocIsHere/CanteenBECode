@@ -98,8 +98,8 @@ class ReportService {
             sale_quantity: sales,
             loss_quantity: numLoss,
             income: money,
-            profit: 12350000,
-            loss_money: 3421000
+            profit: prof,
+            loss_money: lossM
         });
         return DInvReport;
     }
