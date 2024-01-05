@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 import config from "../configs/config.mongodb.js";
 import { countConnect } from "../helpers/check.connect.js";
 const env = process.env.NODE_ENV || "dev";
-const { db } = config[env] || {};  
-const { host, port, name } = db;
+const { base } = config[env] || {};  
+const { host, port, name } = (config[env])["db"];
 const connects= {
   dev: `mongodb://${host}:${port}/${name}`,
   pro: `mongodb+srv://${host}:${port}@canteenmanagement.qbhpovo.mongodb.net/${name}?retryWrites=true&w=majority`,
