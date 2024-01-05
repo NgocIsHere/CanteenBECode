@@ -31,18 +31,18 @@ class ReportService {
             let comeN = 0;
             for(const ob of listC){
                 for (const itemC of ob.come_list) {
-                    if (item.inventoryItem_name == itemC.inventoryItem_name) {
+                    if (item.inventoryItem_name == itemC.inventoryItem_name && item.inventoryItem_exp == itemC.inventoryItem_exp) {
                         comeN += itemC.inventoryItem_quantity;
                     }
                 }
-            }
+            };
             for(const ob of listL){
                 for (const itemC of ob.leave_list) {
                     if (item._id == itemC.inventoryItem) {
                         leaveN += itemC.quantity;
                     }
                 }
-            }
+            };
     
             let initN = quantityN + leaveN - comeN;
             DInvReport.inventory_list.push({
@@ -51,7 +51,7 @@ class ReportService {
                 item_id: convertToObjectId(item_idN),
                 inventoryName: item.inventoryItem_name,
                 leave: leaveN,
-                come: comeN
+                come: comeN,
             });
         }
         const listD = await findinventoryDeleteVoucherTime(datetime);
@@ -63,14 +63,14 @@ class ReportService {
         return DInvReport;
     }
     static async getAllDInvReport() {
-        return dInventoryReport.find();
+        return dInventoryReport.find({});
     }
     static async getDInvReport(Time) {
         return await findInvReportByTime(Time);
     }
     static async getDInvReportDetail({Id}) {
         const report = await dInventoryReport.find({_id: convertToObjectId(Id)});
-        return report.inventory_list;
+        return report.inventory_list[0];
     }
     static async createDIncReport(userId) {
         //user_id,sale_quantity,loss_quantity,profit,loss_money,
