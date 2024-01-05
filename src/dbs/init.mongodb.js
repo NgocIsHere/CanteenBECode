@@ -15,7 +15,7 @@ class Database {
 
   connect() {
     mongoose
-    .connect(connectString)
+    .connect("mongodb+srv://borua1611:ngoc123@canteenmanagement.qbhpovo.mongodb.net/canteenmanagement?retryWrites=true&w=majority")
       .then(() => {
         // Assuming countConnect is defined
         countConnect();
