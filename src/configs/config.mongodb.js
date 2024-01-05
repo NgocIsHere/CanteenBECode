@@ -22,8 +22,6 @@ const pro = {
   },
 };
 
-const config = { dev, pro };
-
-const env = process.env.NODE_ENV || "dev";
-
-export default config;
+// const config = { dev, pro };
+const config =  pro || dev
+export default config.db ;
