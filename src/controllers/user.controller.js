@@ -6,6 +6,7 @@ class UserController {
   static async updateInfo(req, res) {
     const userUpdate = await UserService.updateUser({
       ...req.body,
+      userId: req.user._id,
     });
 
     new SuccessResponse({

@@ -9,7 +9,7 @@ const userRoute = Router();
 userRoute.use(authentication);
 
 userRoute.patch("/user", asyncHandler(UserController.updateInfo));
-userRoute.patch("/staff", asyncHandler(UserController.updateInfo));
+userRoute.patch("/staff", asyncHandler(UserController.updateInfoStaff));
 
 userRoute.get(
   "/user/:id",
