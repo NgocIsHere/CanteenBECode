@@ -6,7 +6,6 @@ class UserController {
   static async updateInfo(req, res) {
     const userUpdate = await UserService.updateUser({
       ...req.body,
-      userId: req.user._id,
     });
 
     new SuccessResponse({
@@ -15,10 +14,8 @@ class UserController {
     }).send(res);
   }
   static async updateInfoStaff(req, res) {
-    const { id } = req.params;
     const userUpdate = await UserService.updateUser({
       ...req.body,
-      userId: id
     });
 
     new SuccessResponse({
