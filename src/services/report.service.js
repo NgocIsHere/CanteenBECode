@@ -33,9 +33,7 @@ class ReportService {
             let comeN = 0;
             for (const ob of listC) {
                 for (const itemC of ob.come_list) {
-                    if (item.inventoryItem_name == itemC.inventoryItem_name && item.inventoryItem_exp == itemC.inventoryItem_exp) {
                         comeN += itemC.inventoryItem_quantity;
-                    }
                 }
             };
             for (const ob of listL) {
