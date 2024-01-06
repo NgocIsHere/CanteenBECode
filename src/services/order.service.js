@@ -36,7 +36,7 @@ class OrderService {
         order_id: newOrder._id,
         item_id: itemInDb._id,
         item_image: itemInDb.item_image,
-        quantity: item.item_quantity,
+        quantity: +item.item_quantity,
         item_name: itemInDb.item_name,
         item_price: itemInDb.item_price,
         item_note: item.item_note,
