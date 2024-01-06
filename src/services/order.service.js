@@ -76,9 +76,6 @@ class OrderService {
 
     if (!orderFound) throw new ErrorResponse("Order not found", 404);
 
-    if (orderFound.user_id.toString() !== userId)
-      throw new ErrorResponse("You are not owner of this order", 400);
-
     if (orderFound.order_status !== "pending")
       throw new ErrorResponse("Order is not pending", 400);
 
